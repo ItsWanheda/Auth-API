@@ -1,0 +1,1 @@
+"""Core utilities (database, exceptions, logging)."""
