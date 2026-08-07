@@ -358,7 +358,7 @@ Recommended lifetime:
 ## Clone Repository
 
 ```bash
-git clone https://github.com/username/auth-api.git
+git clone https://github.com/ItsWanheda/auth-api.git
 
 cd auth-api
 ```
