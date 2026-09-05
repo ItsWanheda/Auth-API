@@ -594,7 +594,7 @@ This project is licensed under the MIT License.
 
 # ⭐ Author
 
-Built with ❤️ using:
+Built with ❤️ by ItsWanheda using:
 
 * Python
 * FastAPI
