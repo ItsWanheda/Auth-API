@@ -15,4 +15,4 @@ structlog>=24.4.0
 orjson>=3.10.0
 pytest
 pytest-asyncio
-+httpx>=0.28.0
+httpx>=0.28.0
