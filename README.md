@@ -1,164 +1,239 @@
-# 🔐 Auth API — Production Ready Authentication Service
+# 🔐 Auth API
 
-![Python](https://img.shields.io/badge/Python-3.13+-blue.svg)
-![FastAPI](https://img.shields.io/badge/FastAPI-Modern%20API-green.svg)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue.svg)
-![JWT](https://img.shields.io/badge/Auth-JWT-orange.svg)
-![Docker](https://img.shields.io/badge/Docker-Supported-blue.svg)
-![License](https://img.shields.io/badge/License-MIT-yellow.svg)
+### Production-ready authentication service built with FastAPI, PostgreSQL, and JWT
 
-A secure, scalable, and production-ready **Authentication REST API** built with **FastAPI** following modern backend architecture principles.
+![Python](https://img.shields.io/badge/Python-3.13%2B-3776AB?style=for-the-badge\&logo=python\&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-Modern_API-009688?style=for-the-badge\&logo=fastapi\&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-4169E1?style=for-the-badge\&logo=postgresql\&logoColor=white)
+![JWT](https://img.shields.io/badge/Auth-JWT-000000?style=for-the-badge\&logo=jsonwebtokens\&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-Supported-2496ED?style=for-the-badge\&logo=docker\&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-F5C518?style=for-the-badge)
 
-The project provides a complete authentication system with JWT-based authentication, refresh token management, password security, email verification, password recovery, and a clean service-oriented architecture.
+> A secure, scalable authentication REST API designed with modern backend engineering and security practices.
+
+**Auth API** provides a complete identity and authentication backend for modern applications, including JWT authentication, refresh-token rotation, password security, email verification, password recovery, session management, and a clean layered architecture.
 
 ---
 
-# 🚀 Overview
+## ✨ Highlights
 
-Modern applications require secure identity management. This project provides a complete authentication backend that can be integrated into:
+* 🔐 JWT-based authentication
+* 🔄 Refresh-token rotation and revocation
+* 🛡️ Argon2 password hashing
+* 📧 Email verification and password recovery
+* 👤 User and session management
+* 🧱 Layered service-oriented architecture
+* ⚡ Fully asynchronous database operations
+* 🗄️ PostgreSQL + SQLAlchemy
+* 🧪 Automated testing
+* 🐳 Docker-ready deployment
+* 📚 Automatic OpenAPI / Swagger documentation
+* 🚦 Rate limiting and security middleware
+* ⚙️ Environment-based configuration
 
-* Web applications
-* Mobile applications
-* SaaS platforms
-* Internal enterprise systems
-* Microservice architectures
+---
 
-The API focuses on:
+## 🚀 Why Auth API?
 
-✅ Security
-✅ Scalability
-✅ Maintainability
-✅ Clean architecture
-✅ Developer experience
+Authentication is one of the most security-sensitive parts of an application.
+
+Instead of embedding authentication logic directly inside route handlers, Auth API separates responsibilities into dedicated layers:
+
+```text
+                    ┌──────────────────────┐
+                    │      HTTP Client     │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │     Router Layer     │
+                    │  HTTP / Validation   │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │     Service Layer    │
+                    │    Business Logic    │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │   Repository Layer   │
+                    │   Data Operations    │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │    PostgreSQL DB     │
+                    └──────────────────────┘
+```
+
+This makes the system easier to:
+
+* Test
+* Maintain
+* Extend
+* Secure
+* Scale
+* Integrate into other applications
 
 ---
 
 # ✨ Features
 
-## Authentication
+## 🔐 Authentication
 
-* User registration
-* Secure login
-* JWT Access Token authentication
-* Refresh Token authentication
-* Token rotation
-* Token revocation
-* Logout current session
-* Logout all sessions
-* Protected routes
+| Feature                | Status |
+| ---------------------- | :----: |
+| User registration      |    ✅   |
+| Secure login           |    ✅   |
+| JWT access tokens      |    ✅   |
+| Refresh tokens         |    ✅   |
+| Refresh-token rotation |    ✅   |
+| Token revocation       |    ✅   |
+| Session logout         |    ✅   |
+| Logout all sessions    |    ✅   |
+| Protected routes       |    ✅   |
 
 ---
 
-## User Management
+## 👤 User Management
 
 * User profile retrieval
-* Profile update
-* Password change
+* Profile updates
+* Password changes
 * Account management
 * UUID-based user identities
+* Session-aware authentication
 
 ---
 
-## Security
+## 🛡️ Security
 
-* Argon2 password hashing
-* JWT token signing
-* Secure token expiration
+Security is a first-class concern throughout the application.
+
+* **Argon2** password hashing
+* JWT signing and validation
+* Short-lived access tokens
+* Refresh-token rotation
+* Token revocation
 * Password strength validation
-* SQL injection protection
-* Input validation
+* Request validation with Pydantic
+* SQL injection protection through ORM/query parameterization
 * CORS configuration
 * Security headers
 * Rate limiting
-* Environment-based configuration
+* Environment-based secrets
+* Centralized exception handling
+
+> ⚠️ Production deployments should additionally configure HTTPS, secure secret storage, trusted CORS origins, email infrastructure, monitoring, and appropriate reverse-proxy settings.
 
 ---
 
-## Email System
+## 📧 Email & Account Recovery
+
+The authentication system supports:
 
 * Email verification
 * Verification tokens
-* Password reset emails
-* Secure recovery flow
+* Password reset requests
+* Password reset tokens
+* Secure account recovery workflows
 
 ---
 
-## Developer Features
+## 🧑‍💻 Developer Experience
 
 * Automatic Swagger documentation
+* ReDoc documentation
 * Async database support
+* Dependency injection
 * Repository pattern
 * Service layer architecture
-* Dependency injection
 * Structured logging
 * Custom exception handling
 * Docker support
-* Automated testing
+* Alembic migrations
+* Automated tests
+* Environment-based configuration
 
 ---
 
 # 🏗️ Architecture
 
-The application follows a layered architecture:
+Auth API follows a layered backend architecture.
 
 ```text
-Router Layer
-      |
-      ↓
-Service Layer
-      |
-      ↓
-Repository Layer
-      |
-      ↓
-Database Layer
+app/
+│
+├── routers/
+│       ↓
+│   HTTP layer
+│
+├── services/
+│       ↓
+│   Business logic
+│
+├── repositories/
+│       ↓
+│   Data access
+│
+└── database/
+        ↓
+    PostgreSQL
 ```
 
 ### Router Layer
 
-Handles:
+Responsible for:
 
 * HTTP requests
 * Request validation
-* Response formatting
+* Authentication dependencies
+* Response serialization
+* API routing
 
-Location:
-
-```
+```text
 app/routers/
 ```
 
----
-
 ### Service Layer
 
-Contains business logic:
+Contains application and business logic:
 
-* Authentication workflow
+* Authentication workflows
 * User management
-* Token generation
-* Email handling
+* Token handling
+* Email workflows
 
-Location:
-
-```
+```text
 app/services/
 ```
 
----
-
 ### Repository Layer
 
-Handles database operations:
+Responsible for persistence:
 
 * CRUD operations
-* Queries
-* Data persistence
+* Database queries
+* User persistence
+* Token persistence
 
-Location:
-
-```
+```text
 app/repositories/
+```
+
+### Security Layer
+
+Contains security-sensitive functionality:
+
+* Password hashing
+* JWT handling
+* Token generation
+* Token validation
+
+```text
+app/security/
 ```
 
 ---
@@ -169,69 +244,69 @@ app/repositories/
 auth-api/
 │
 ├── app/
-│
+│   │
 │   ├── config/
 │   │   ├── __init__.py
 │   │   └── settings.py
-│
+│   │
 │   ├── core/
 │   │   ├── database.py
 │   │   ├── exceptions.py
 │   │   └── logging.py
-│
+│   │
 │   ├── models/
 │   │   ├── base.py
 │   │   ├── user.py
 │   │   ├── refresh_token.py
 │   │   ├── password_reset_token.py
 │   │   └── email_verification_token.py
-│
+│   │
 │   ├── schemas/
 │   │   ├── common.py
 │   │   ├── user.py
 │   │   └── auth.py
-│
+│   │
 │   ├── repositories/
 │   │   ├── base.py
 │   │   ├── user.py
 │   │   └── token.py
-│
+│   │
 │   ├── services/
 │   │   ├── user.py
 │   │   ├── auth.py
 │   │   ├── token.py
 │   │   └── email.py
-│
+│   │
 │   ├── routers/
 │   │   ├── auth.py
 │   │   ├── user.py
 │   │   └── health.py
-│
+│   │
 │   ├── dependencies/
 │   │   ├── auth.py
 │   │   ├── database.py
 │   │   └── services.py
-│
+│   │
 │   ├── security/
 │   │   ├── password.py
 │   │   ├── jwt.py
 │   │   └── tokens.py
-│
+│   │
 │   ├── middleware/
 │   │   ├── logging.py
 │   │   ├── rate_limit.py
 │   │   └── security_headers.py
-│
+│   │
 │   ├── utils/
 │   │   ├── validators.py
 │   │   └── helpers.py
-│
+│   │
 │   ├── tests/
 │   │   ├── conftest.py
 │   │   ├── test_auth.py
 │   │   ├── test_user.py
 │   │   └── test_validators.py
-│
+│   │
 │   └── main.py
 │
 ├── migrations/
@@ -252,29 +327,45 @@ auth-api/
 
 ---
 
-# 🔐 Authentication Flow
+# 🔄 Authentication Flow
 
 ```text
-                Register
-                   |
-                   ↓
-          Password Hash (Argon2)
-                   |
-                   ↓
-             Store User
-                   |
-                   ↓
-          Email Verification
-                   |
-                   ↓
-                Login
-                   |
-                   ↓
-       Generate JWT Access Token
-       Generate Refresh Token
-                   |
-                   ↓
-          Access Protected APIs
+┌──────────────┐
+│    Register  │
+└──────┬───────┘
+       │
+       ▼
+┌────────────────────┐
+│ Hash Password      │
+│      Argon2        │
+└─────────┬──────────┘
+          │
+          ▼
+┌────────────────────┐
+│ Store User         │
+│   PostgreSQL       │
+└─────────┬──────────┘
+          │
+          ▼
+┌────────────────────┐
+│ Email Verification │
+└─────────┬──────────┘
+          │
+          ▼
+┌────────────────────┐
+│       Login        │
+└─────────┬──────────┘
+          │
+          ▼
+┌────────────────────────────┐
+│ Generate Access + Refresh  │
+│          Tokens            │
+└────────────┬───────────────┘
+             │
+             ▼
+┌────────────────────────────┐
+│     Protected APIs         │
+└────────────────────────────┘
 ```
 
 ---
@@ -283,79 +374,108 @@ auth-api/
 
 ## Access Token
 
-Used for API authentication.
+Access tokens authenticate API requests.
 
-Example:
-
-```
+```http
 Authorization: Bearer <access_token>
 ```
 
 Recommended lifetime:
 
-```
+```text
 15 minutes
 ```
+
+Short-lived access tokens reduce the impact of token compromise.
 
 ---
 
 ## Refresh Token
 
-Used to generate new access tokens.
+Refresh tokens are used to obtain new access tokens without requiring the user to log in again.
 
-Features:
+Auth API supports:
 
-* Database stored
-* Revocable
-* Rotated after usage
-* Device/session based
+* Database persistence
+* Token rotation
+* Token revocation
+* Session/device association
+* Expiration
+* Logout invalidation
 
 Recommended lifetime:
 
-```
+```text
 30 days
+```
+
+### Refresh Flow
+
+```text
+Client
+  │
+  │ Refresh Token
+  ▼
+/auth/refresh
+  │
+  ├── Validate token
+  ├── Check expiration
+  ├── Check revocation
+  ├── Rotate token
+  │
+  ▼
+New Access Token
++
+New Refresh Token
 ```
 
 ---
 
-# 📡 API Endpoints
+# 📡 API Reference
 
 ## Authentication
 
 | Method | Endpoint                | Description            |
-| ------ | ----------------------- | ---------------------- |
-| POST   | `/auth/register`        | Create account         |
-| POST   | `/auth/login`           | Login                  |
-| POST   | `/auth/refresh`         | Refresh token          |
-| POST   | `/auth/logout`          | Logout session         |
-| POST   | `/auth/logout-all`      | Logout all devices     |
-| POST   | `/auth/verify-email`    | Verify email           |
-| POST   | `/auth/forgot-password` | Request password reset |
-| POST   | `/auth/reset-password`  | Reset password         |
-
----
+| :----: | ----------------------- | ---------------------- |
+| `POST` | `/auth/register`        | Create a new account   |
+| `POST` | `/auth/login`           | Authenticate user      |
+| `POST` | `/auth/refresh`         | Refresh access token   |
+| `POST` | `/auth/logout`          | Logout current session |
+| `POST` | `/auth/logout-all`      | Logout all sessions    |
+| `POST` | `/auth/verify-email`    | Verify email address   |
+| `POST` | `/auth/forgot-password` | Request password reset |
+| `POST` | `/auth/reset-password`  | Reset password         |
 
 ## User
 
-| Method | Endpoint          | Description     |
-| ------ | ----------------- | --------------- |
-| GET    | `/users/me`       | Current user    |
-| PATCH  | `/users/me`       | Update profile  |
-| PATCH  | `/users/password` | Change password |
-
----
+|  Method | Endpoint          | Description      |
+| :-----: | ----------------- | ---------------- |
+|  `GET`  | `/users/me`       | Get current user |
+| `PATCH` | `/users/me`       | Update profile   |
+| `PATCH` | `/users/password` | Change password  |
 
 ## System
 
-| Method | Endpoint  |
-| ------ | --------- |
-| GET    | `/health` |
+| Method | Endpoint  | Description  |
+| :----: | --------- | ------------ |
+|  `GET` | `/health` | Health check |
 
 ---
 
-# ⚙️ Installation
+# ⚙️ Getting Started
 
-## Clone Repository
+## Requirements
+
+Before running the project, make sure you have:
+
+* Python **3.13+**
+* PostgreSQL
+* Git
+* Docker *(optional)*
+
+---
+
+## 1. Clone the Repository
 
 ```bash
 git clone https://github.com/ItsWanheda/auth-api.git
@@ -365,29 +485,25 @@ cd auth-api
 
 ---
 
-# 🐍 Create Virtual Environment
+## 2. Create a Virtual Environment
+
+### Linux / macOS
 
 ```bash
 python -m venv .venv
-```
-
-Activate:
-
-Linux:
-
-```bash
 source .venv/bin/activate
 ```
 
-Windows:
+### Windows
 
 ```powershell
+python -m venv .venv
 .venv\Scripts\activate
 ```
 
 ---
 
-# 📦 Install Dependencies
+## 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -395,23 +511,28 @@ pip install -r requirements.txt
 
 ---
 
-# 🔧 Environment Setup
+## 4. Configure Environment
 
-Copy:
+Create your environment file:
 
 ```bash
 cp .env.example .env
 ```
 
-Example:
+Windows PowerShell:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Example configuration:
 
 ```env
 DATABASE_URL=postgresql://user:password@localhost/authdb
 
-JWT_SECRET_KEY=your_secret_key
+JWT_SECRET_KEY=change_this_in_production
 
 ACCESS_TOKEN_EXPIRE_MINUTES=15
-
 REFRESH_TOKEN_EXPIRE_DAYS=30
 
 SMTP_HOST=smtp.example.com
@@ -420,33 +541,37 @@ SMTP_USERNAME=
 SMTP_PASSWORD=
 ```
 
+> 🔒 Never commit `.env` or production secrets to version control.
+
 ---
 
-# 🗄️ Database Migration
+# 🗄️ Database
 
-Run:
+Run the database migrations:
 
 ```bash
 alembic upgrade head
 ```
 
-Create migration:
+Create a new migration:
 
 ```bash
-alembic revision --autogenerate -m "migration_name"
+alembic revision --autogenerate -m "add_new_feature"
 ```
 
 ---
 
-# ▶️ Running Development Server
+# ▶️ Run the Application
+
+Start the development server:
 
 ```bash
 uvicorn app.main:app --reload
 ```
 
-Server:
+The API will be available at:
 
-```
+```text
 http://localhost:8000
 ```
 
@@ -454,51 +579,59 @@ http://localhost:8000
 
 # 📚 API Documentation
 
-Swagger:
+FastAPI automatically generates interactive API documentation.
 
-```
+### Swagger UI
+
+```text
 http://localhost:8000/docs
 ```
 
-ReDoc:
+### ReDoc
 
-```
+```text
 http://localhost:8000/redoc
 ```
 
 ---
 
-# 🐳 Docker Deployment
+# 🐳 Docker
 
-Build:
+Build the containers:
 
 ```bash
 docker compose build
 ```
 
-Run:
+Start the development environment:
 
 ```bash
 docker compose up
 ```
 
-Production:
+Run in detached mode:
 
 ```bash
 docker compose up -d
+```
+
+Stop the environment:
+
+```bash
+docker compose down
 ```
 
 ---
 
 # 🧪 Testing
 
-Run tests:
+Run the test suite:
 
 ```bash
 pytest
 ```
 
-Coverage:
+Run with coverage:
 
 ```bash
 pytest --cov=app
@@ -508,100 +641,126 @@ pytest --cov=app
 
 # 🛠️ Development Commands
 
-Using Makefile:
+If you use the included `Makefile`:
 
 ```bash
 make install
-```
-
-```bash
 make test
-```
-
-```bash
 make format
-```
-
-```bash
 make lint
 ```
 
 ---
 
-# 📈 Future Roadmap
+# 🗺️ Roadmap
 
 ## Authentication
 
-* OAuth2 login
-* Google authentication
-* GitHub authentication
-* Discord authentication
-* Two-factor authentication
-* WebAuthn / Passkeys
+* [ ] OAuth2 / OpenID Connect
+* [ ] Google authentication
+* [ ] GitHub authentication
+* [ ] Discord authentication
+* [ ] Two-factor authentication
+* [ ] WebAuthn / Passkeys
 
 ## Security
 
-* Device management
-* Login history
-* Suspicious login detection
-* Advanced rate limiting
-* Audit logs
+* [ ] Device management
+* [ ] Login history
+* [ ] Suspicious-login detection
+* [ ] Advanced rate limiting
+* [ ] Security audit logs
 
 ## Platform
 
-* Admin dashboard
-* User roles
-* Permissions system
-* API keys
-* Microservice support
+* [ ] Admin dashboard
+* [ ] Role-based access control
+* [ ] Permission system
+* [ ] API keys
+* [ ] Multi-tenant support
+* [ ] Microservice integration
 
 ---
 
-# 🤝 Contribution
+# 🤝 Contributing
 
-Contributions are welcome.
+Contributions, bug reports, feature requests, and security improvements are welcome.
 
-Steps:
-
-1. Fork repository
-2. Create feature branch
+### Development workflow
 
 ```bash
-git checkout -b feature/new-feature
+# Fork the repository
+
+git clone https://github.com/ItsWanheda/auth-api.git
+
+cd auth-api
+
+git checkout -b feature/my-feature
 ```
 
-3. Commit changes
+Make your changes, then:
 
 ```bash
-git commit -m "Add new feature"
+git add .
+
+git commit -m "feat: add my feature"
+
+git push origin feature/my-feature
 ```
 
-4. Push changes
+Finally, open a Pull Request.
 
-```bash
-git push origin feature/new-feature
-```
+### Contribution areas
 
-5. Open Pull Request
+* 🐛 Bug fixes
+* 🔐 Security improvements
+* ⚡ Performance
+* 🧪 Tests
+* 📚 Documentation
+* ✨ New authentication features
+* 🏗️ Architecture improvements
+
+---
+
+# 🔒 Security
+
+If you discover a security vulnerability, please **do not open a public issue with sensitive details**.
+
+Instead, report the vulnerability privately through the repository's available security reporting channel.
+
+Security-related contributions are especially welcome.
 
 ---
 
 # 📄 License
 
-This project is licensed under the MIT License.
+This project is licensed under the **MIT License**.
 
 ---
 
-# ⭐ Author
+# 👨‍💻 Author
 
-Built with ❤️ by ItsWanheda using:
+Built with ❤️ by **ItsWanheda**
 
-* Python
-* FastAPI
-* PostgreSQL
-* SQLAlchemy
-* Modern Backend Architecture
+### Stack
+
+* 🐍 Python
+* ⚡ FastAPI
+* 🐘 PostgreSQL
+* 🧩 SQLAlchemy
+* 🔑 JWT
+* 🛡️ Argon2
+* 🐳 Docker
+* 🔄 Alembic
 
 ---
 
-If this project helped you, consider giving it a ⭐ on GitHub.
+<div align="center">
+
+### 🔐 Secure identity. Clean architecture. Modern backend engineering.
+
+If this project is useful to you, consider giving it a ⭐ on GitHub.
+
+**Built for developers who care about security and maintainability.**
+
+</div>
